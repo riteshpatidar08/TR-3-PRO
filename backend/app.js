@@ -7,6 +7,7 @@ const colors = require('colors')
 //NOTE fn to connect with the mongodb
 dbConnect() ;
 
+app.use(express.json()) ;
 
 app.use('/api',require('./routes/userRoutes'))
 
