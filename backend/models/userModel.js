@@ -32,10 +32,11 @@ const userSchema = new mongoose.Schema({
           minSymbols: 1,
         });
       },
-      message: '',
+      message: 'Password must contain 1 uppercase , 1 lowercase , 1 number , 1 symbol ',
     },
   },
 });
 
 const User = mongoose.model('User', userSchema);
+
 module.exports = User;
