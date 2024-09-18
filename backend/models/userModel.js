@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcrypt') ;
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -36,6 +37,16 @@ const userSchema = new mongoose.Schema({
     },
   },
 });
+
+userSchema.pre('save', async function(next){
+  //if password is not modified we don't need to hash the password again
+  if(!this.isModified('password')) next()
+//if it is modified hash the password again 
+this.password =  await bcrypt.hash(this.password , 12)
+  next()
+})
+
+//NOTE this keyword points to the document we are going to save in the db.
 
 const User = mongoose.model('User', userSchema);
 
