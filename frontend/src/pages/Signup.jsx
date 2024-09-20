@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import {z} from 'zod'
-
+import axios from 'axios'
 import {zodResolver} from '@hookform/resolvers/zod'
-
+import { toast } from 'sonner';
 function Signup() {
 
     const schema = z.object({
@@ -17,8 +17,15 @@ function Signup() {
 
 console.log(errors) ;
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit =async (data) => {
+   try {
+    const res = await axios.post("http://localhost:3000/api/register",data)
+toast.success("User registered Succussfully")
+   } catch (error) {
+    console.log(error)
+    toast.error(error.response.data)
+   }
+
   };
   
   return (

@@ -3,7 +3,8 @@ const app = express();
 const dbConnect = require('./db');
 const PORT = 3000;
 const colors = require('colors');
-
+const cors = require('cors')
+app.use(cors())
 //NOTE fn to connect with the mongodb
 dbConnect();
 
