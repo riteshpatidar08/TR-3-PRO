@@ -2,5 +2,5 @@
 @tailwind components;
 @tailwind utilities;
 .input_field {
-    @apply block mt-1 border border-slate-900 p-2 w-full rounded-md
+    @apply block mt-1 border border-slate-900 p-1 w-full rounded-md
 }
