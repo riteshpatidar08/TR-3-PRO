@@ -20,7 +20,7 @@ console.log(errors) ;
   const onSubmit =async (data) => {
    try {
     const res = await axios.post("http://localhost:3000/api/register",data)
-toast.success("User registered Succussfully")
+   toast.success("User registered Succussfully")
    } catch (error) {
     console.log(error)
     toast.error(error.response.data)
