@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'sonner';
-import {jwtDecode} from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode';
 export const Register = createAsyncThunk(
   '/user/register',
   async (data, { rejectWithValue }) => {
@@ -30,9 +30,9 @@ export const userLogin = createAsyncThunk(
 const initialState = {
   loading: false,
   error: null,
-  token : null,
-  role : null,
-  name : null
+  token: null,
+  role: null,
+  name: null,
 };
 
 const userSlice = createSlice({
@@ -57,8 +57,13 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(userLogin.fulfilled, (state, action) => {
-        const {token} = action.payload
-        console.log(jwtDecode(token))
+        const { token } = action.payload;
+        const { name, role } = jwtDecode(token);
+        state.token = token;
+        state.name = name;
+        state.role = role;
+        localStorage.setItem('token', token)
+        localStorage.setItem('role', role)
         console.log(action.payload);
         toast.success('Login Successfull');
       })
