@@ -2,11 +2,24 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'sonner';
+
 export const Register = createAsyncThunk(
-  '/user/login',
+  '/user/register',
   async (data, { rejectWithValue }) => {
     try {
       const res = await axios.post('http://localhost:3000/api/register', data);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const userLogin = createAsyncThunk(
+  '/user/login',
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await axios.post('http://localhost:3000/api/login', data);
       return res.data;
     } catch (error) {
       return rejectWithValue(error);
@@ -36,7 +49,15 @@ const userSlice = createSlice({
         console.log(action.payload);
         state.error = action.payload;
         toast.error(action.payload.response.data)
-      });
+      }).addCase(userLogin.pending,(state)=>{
+        state.loading = true
+      }).addCase(userLogin.fulfilled , (state,action)=>{
+        console.log(action.payload)
+        toast.success("Login Successfull")
+      }).addCase(userLogin.rejected,(state,action)=>{
+      console.log(action.payload)
+      toast.success(action.payload.response.data.message)
+      })
   },
 });
 
