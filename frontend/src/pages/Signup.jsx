@@ -4,7 +4,11 @@ import {z} from 'zod'
 import axios from 'axios'
 import {zodResolver} from '@hookform/resolvers/zod'
 import { toast } from 'sonner';
+import { useDispatch } from 'react-redux';
+import { Register } from '../redux/userSlice';
 function Signup() {
+
+const dispatch = useDispatch() ;
 
     const schema = z.object({
        name : z.string().min(1 , "Name is required").max(40,"Name cannot exceed 40 characters"),
@@ -17,16 +21,10 @@ function Signup() {
 
 console.log(errors) ;
 
-  const onSubmit =async (data) => {
-   try {
-    const res = await axios.post("http://localhost:3000/api/register",data)
-   toast.success("User registered Succussfully")
-   } catch (error) {
-    console.log(error)
-    toast.error(error.response.data)
-   }
-
+  const onSubmit = (data) => {
+  dispatch(Register(data))
   };
+  
   
   return (
     <div className="flex justify-center items-center min-h-screen">

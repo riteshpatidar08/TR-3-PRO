@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-export const register = createAsyncThunk(
+import { toast } from 'sonner';
+export const Register = createAsyncThunk(
   '/user/login',
   async (data, { rejectWithValue }) => {
     try {
@@ -25,15 +25,17 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     //first pending
     builder
-      .addCase(register.pending, (state) => {
+      .addCase(Register.pending, (state) => {
         state.loading = true;
       })
-      .addCase(register.fulfilled, (state) => {
+      .addCase(Register.fulfilled, (state) => {
         state.loading = false;
+        toast.success("✅Account created")
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(Register.rejected, (state, action) => {
         console.log(action.payload);
         state.error = action.payload;
+        toast.error(action.payload.response.data)
       });
   },
 });
