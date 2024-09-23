@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { toast } from 'sonner';
-
+import {jwtDecode} from 'jwt-decode'
 export const Register = createAsyncThunk(
   '/user/register',
   async (data, { rejectWithValue }) => {
@@ -30,6 +30,9 @@ export const userLogin = createAsyncThunk(
 const initialState = {
   loading: false,
   error: null,
+  token : null,
+  role : null,
+  name : null
 };
 
 const userSlice = createSlice({
@@ -43,21 +46,26 @@ const userSlice = createSlice({
       })
       .addCase(Register.fulfilled, (state) => {
         state.loading = false;
-        toast.success("✅Account created")
+        toast.success('✅Account created');
       })
       .addCase(Register.rejected, (state, action) => {
         console.log(action.payload);
         state.error = action.payload;
-        toast.error(action.payload.response.data)
-      }).addCase(userLogin.pending,(state)=>{
-        state.loading = true
-      }).addCase(userLogin.fulfilled , (state,action)=>{
-        console.log(action.payload)
-        toast.success("Login Successfull")
-      }).addCase(userLogin.rejected,(state,action)=>{
-      console.log(action.payload)
-      toast.success(action.payload.response.data.message)
+        toast.error(action.payload.response.data);
       })
+      .addCase(userLogin.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(userLogin.fulfilled, (state, action) => {
+        const {token} = action.payload
+        console.log(jwtDecode(token))
+        console.log(action.payload);
+        toast.success('Login Successfull');
+      })
+      .addCase(userLogin.rejected, (state, action) => {
+        console.log(action.payload);
+        toast.success(action.payload.response.data);
+      });
   },
 });
 
