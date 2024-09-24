@@ -5,13 +5,15 @@ import { useDispatch } from 'react-redux';
 import { FaGoogle, FaUser, FaLock } from 'react-icons/fa';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-
+import { useNavigate , useLocation } from 'react-router-dom';
 
 
 function Login() {
   const { handleSubmit, register, formState: { errors } } = useForm(); 
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.pathname)
 
   const [showPassword, setShowPassword] = useState(false);
 
