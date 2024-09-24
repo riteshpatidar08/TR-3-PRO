@@ -50,7 +50,7 @@ const userSlice = createSlice({
       })
       .addCase(Register.rejected, (state, action) => {
         console.log(action.payload);
-        state.error = action.payload;
+        state.error = action.payload.response.data;
         toast.error(action.payload.response.data);
       })
       .addCase(userLogin.pending, (state) => {

@@ -7,6 +7,7 @@ import { Register } from '../redux/userSlice';
 
 import { FaUser, FaEnvelope, FaPhone, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const schema = z.object({
   name: z.string().min(1, "Name is required").max(40, "Name cannot exceed 40 characters"),
@@ -23,13 +24,14 @@ const schema = z.object({
 function Signup() {
   const { loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate() ;
   const { handleSubmit, register, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    dispatch(Register(data));
+  const onSubmit = async(data) => {
+    await dispatch(Register(data));
+    navigate('/login')
   };
 
   return (
@@ -86,7 +88,7 @@ function Signup() {
             className="bg-black px-8 py-2 rounded-md w-full mt-3 text-white"
             type="submit"
           >
-            {loading ? <CircularProgress size={24} className="text-white" /> : "Signup"}
+            Signup
           </button>
         </form>
 
