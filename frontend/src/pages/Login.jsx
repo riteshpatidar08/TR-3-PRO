@@ -26,7 +26,6 @@ function Login() {
       navigate('/dashboard')
     }
 
-
   },[role,navigate,location.pathname])
 
 
