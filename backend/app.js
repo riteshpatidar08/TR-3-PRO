@@ -13,6 +13,8 @@ app.use(express.json());
 
 //NOTE Routes middleware
 app.use('/api', require('./routes/userRoutes'));
+app.use('/api',require('./routes/categoryRoutes'
+))
 
 //NOTE GLOBAL ROUTES HANDLER (middleware)
 app.use((req, res, next) => {
