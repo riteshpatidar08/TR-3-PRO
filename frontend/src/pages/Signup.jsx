@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useDispatch, useSelector } from 'react-redux';
 import { Register } from '../redux/userSlice';
-import { CircularProgress } from '@mui/material';
+
 import { FaUser, FaEnvelope, FaPhone, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
