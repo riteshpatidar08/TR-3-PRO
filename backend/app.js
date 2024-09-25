@@ -3,7 +3,9 @@ const app = express();
 const dbConnect = require('./db');
 const PORT = 3000;
 const colors = require('colors');
+require('dotenv').config()
 const cors = require('cors')
+// console.log(process.env.clientID)
 app.use(cors())
 //NOTE fn to connect with the mongodb
 dbConnect();
