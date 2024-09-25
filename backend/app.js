@@ -1,12 +1,16 @@
 const express = require('express');
 const app = express();
 const dbConnect = require('./db');
+const passport = require('passport')
 const PORT = 3000;
 const colors = require('colors');
 require('dotenv').config()
 const cors = require('cors')
-// console.log(process.env.clientID)
+require('./config/passportConfig')
 app.use(cors())
+
+app.use(passport.initialize())
+app.use(passport.session())
 //NOTE fn to connect with the mongodb
 dbConnect();
 
