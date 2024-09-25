@@ -1,49 +1,47 @@
-const passport = require(passport);
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-require('dotenv').config();
+const passport = require('passport') ;
+const GoogleStrategy = require('passport-google-oauth20').Strategy
+const User = require('../models/userModel')
+require('dotenv').config()
+console.log(process.env.clientID)
 
-const User = require('../models/userModel');
+passport.use(new GoogleStrategy({
+    clientID  :  process.env.clientID ,
+    clientSecret : process.env.clientSecret,
+    callbackURL : process.env.callbackURL
+}, async(accessToken, refreshToken,profile,done)=>{
+  console.log(profile)
 
-passport.use(
-  new GoogleStrategy({
-    clientID: process.env.clientID,
-    clientSecret: process.env.clientSecret,
-    callbackURL: process.env.callbackURL,
-  }),
-  async (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
-    const { id: googleId, displayName: name, emails } = profile;
-    const email = emails[0].value;
+  const {id:googleId , displayName:name, emails} = profile 
+  console.log(emails)
+  const email = emails[0].value
 
-    //check if user alread existing in the database with the googleId
-    try {
-      let user = await User.findOne({ googleId });
-
-      if (!user) {
-        user = await User.create({
-          name,
-          email,
-          googleId,
-        });
-      }
-      done(null, user);
-    } catch (error) {
-      done(error, null);
+   try {
+    let user = await User.findOne({googleId})
+    if(!user){
+        user  = await User.create({
+            name ,
+            googleId ,
+            email
+        })
     }
-  }
-);
 
-passport.serializeUser((user,done)=>{
-    done(null,user.id)
+    done(null ,user)
+   } catch (error) {
+    done(error ,null)
+   }
+
+})) 
+
+passport.serializeUser((user, done)=>{
+done(null , user.id)
 })
 
 passport.deserializeUser(async(id,done)=>{
-    try {
-        const user = await User.findById(id)
-        done(null , user)
-    } catch (error) {
-        done(error,null)
-    }
+  try {
+    const user = await User.findById(id)
+    done(null , user)  
+  } catch (error) {
+    done(error, null)
+  }
 })
 
-// req => req.user => user
