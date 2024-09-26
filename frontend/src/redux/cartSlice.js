@@ -25,8 +25,8 @@ const cartSlice = createSlice({
             }else{
                     existingItem.quantity++
                 }
-                totalQuantity++ ,
-                totalPrice += newItem.discountPrice
+                state.totalQuantity++ ,
+                state.totalPrice += newItem.discountPrice
         }
     }
 })

@@ -8,9 +8,11 @@ import Navitems from './Navitems';
 import { NavData } from './data';
 import { GoSignOut } from "react-icons/go";
 import { logout } from '../../redux/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch , useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 function Navbar() {
+  const {totalQuantity} = useSelector((state)=>state.cart)
+  console.log(totalQuantity)
  const name = localStorage.getItem('name')
 const dispatch = useDispatch()
 const navigate = useNavigate()
@@ -48,8 +50,9 @@ navigate('/login')
             <Link to="/cart" className='relative'>
               <HiOutlineShoppingBag />
               <span className="text-xs font-medium hover:underline transition-all duration-200">
-                Cart
+                Cart 
               </span>
+             {totalQuantity > 0 ? <span  className='absolute rounded-full bg-green-500 text-xs p-1 top-[-11px] '>{totalQuantity}</span> : null}
              </Link>
             
            

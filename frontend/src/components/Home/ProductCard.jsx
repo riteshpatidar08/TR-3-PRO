@@ -1,19 +1,19 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-
+import { addToCart } from '../../redux/cartSlice';
 function ProductCard({ product }) {
   console.log(product);
   const dispatch = useDispatch();
-  //   const handleAddToCart = () => {
-  // dispatch(addTocart({
-  //     id : product._id,
-  //     name : product.name,
-  //     price : product.new_price ,
-  //     image : product.image,
-  //     old_price  : product.old_price
+    const handleAddToCart = () => {
+  dispatch(addToCart({
+    
+      name : product.name,
+      price : product.price ,
+      image : product.image,
+      discountPrice  : product.discountPrice
 
-  // }))
-  //   }
+  }))
+    }
   return (
     <div>
       <div className="relative  group">
@@ -29,8 +29,8 @@ function ProductCard({ product }) {
           bottom-0
           opacity-0 w-full  translate-y-full  group-hover:opacity-100 transition-all duration-200 ease-in-out group-hover:-translate-y-0"
         >
-          <div className="mt-auto">
-            <button className="bg-black bg-opacity-50 px-6 py-4 w-full text-white">
+          <div  className="mt-auto">
+            <button className="bg-black bg-opacity-50 px-6 py-4 w-full text-white" onClick={handleAddToCart}>
               Add to Cart
             </button>
           </div>
