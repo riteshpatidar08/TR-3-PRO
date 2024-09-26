@@ -1,5 +1,5 @@
 const mongoose = require('mongoose') ;
-
+const {Schema} = require('mongoose')
 const productSchema = new mongoose.Schema({
     name : {
         type : String,
@@ -27,7 +27,7 @@ const productSchema = new mongoose.Schema({
         type : Number ,
         default : 0
     },
-    discountPercantage : {
+    discountPercentage : {
         type : Number,
         
     }

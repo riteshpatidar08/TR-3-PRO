@@ -31,6 +31,7 @@ app.use(express.json());
 app.use('/api', require('./routes/userRoutes'));
 app.use('/api',require('./routes/categoryRoutes'
 ))
+app.use('/api', require('./routes/productRoutes'))
 
 //NOTE GLOBAL ROUTES HANDLER (middleware)
 app.use((req, res, next) => {
