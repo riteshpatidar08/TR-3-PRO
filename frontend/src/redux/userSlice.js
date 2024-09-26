@@ -38,6 +38,16 @@ const initialState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
+  reducers : {
+  logout : (state,action)=>{
+state.token = null ,
+state.role  = null ,
+state.name = null,
+localStorage.removeItem("token")
+localStorage.removeItem('role')
+localStorage.removeItem('name')
+  }
+  },
   extraReducers: (builder) => {
     //first pending
     builder
@@ -73,5 +83,5 @@ const userSlice = createSlice({
       });
   },
 });
-
+export const {logout} = userSlice.actions
 export default userSlice.reducer;

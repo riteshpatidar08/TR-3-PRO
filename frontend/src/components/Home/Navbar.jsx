@@ -7,8 +7,17 @@ import { Link } from 'react-router-dom';
 import Navitems from './Navitems';
 import { NavData } from './data';
 import { GoSignOut } from "react-icons/go";
+import { logout } from '../../redux/userSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 function Navbar() {
  const name = localStorage.getItem('name')
+const dispatch = useDispatch()
+const navigate = useNavigate()
+const handleLogOut  = async() => {
+await  dispatch(logout())
+navigate('/login')
+}
   return (
     <header className="p-4 sticky top-0 z-50  bg-white border border-gray-200">
       <div>
@@ -45,7 +54,7 @@ function Navbar() {
             
            
 
-             <Link to="/saved">
+             <Link onClick={handleLogOut}>
            <GoSignOut />
               <span className="text-xs font-medium hover:underline transition-all duration-200">
                Log-Out
