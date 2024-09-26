@@ -6,8 +6,13 @@ import GridSection from '../components/Home/GridSection'
 
 import {useDispatch} from 'react-redux'
 
+import { fetchProduct } from '../redux/productSlice'
+import ProductList from '../components/Home/ProductList'
 function Homepage() {
-  
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(fetchProduct())
+  },[])
 
   return (
     <div>
@@ -15,6 +20,7 @@ function Homepage() {
    <Hero/>
    <GridSection/>
    <Banner/>
+   <ProductList/>
   
     </div>
   )

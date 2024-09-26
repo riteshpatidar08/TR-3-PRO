@@ -8,8 +8,8 @@ require('dotenv').config()
 const cors = require('cors')
 const session = require('express-session')
 require('./config/passportConfig')
-app.use(cors())
-
+app.use(cors()) ;
+app.use('/uploads' , express.static('uploads'))
 app.use(session({
   secret: 'my-secret-string',
   resave: false,
