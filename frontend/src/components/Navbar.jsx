@@ -2,6 +2,9 @@ import React from 'react';
 import { FiUser } from 'react-icons/fi';
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { Link } from 'react-router-dom';
+
+
+
 function Navbar() {
   return (
     <section className='flex flex-col p-4  border-black border-b'>
