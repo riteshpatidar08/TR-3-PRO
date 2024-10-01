@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { fetchProduct } from './../../redux/productSlice';
-import { FiEdit2 } from "react-icons/fi";
+import { FiEdit2 } from 'react-icons/fi';
 import { useSelector, useDispatch } from 'react-redux';
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline } from 'react-icons/md';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import {useForm} from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 function Product() {
-  const {register , handleSubmit} = useForm()
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProduct());
@@ -18,16 +18,16 @@ function Product() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  
-  boxShadow: 24,
-  p: 4,
-};
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+
+    boxShadow: 24,
+    p: 4,
+  };
   const { product } = useSelector((state) => state.product);
 
   const columns = [
@@ -47,28 +47,33 @@ function Product() {
       headerName: 'Price',
       width: 150,
       editable: true,
-    },{
-    field : 'description',
-    headerName : 'Description' }
-    ,{
-      field : "stock",
-      headerName : "Stocks"
-    },{
-   field : 'actions', 
-   headerName : 'Actions' ,
-   renderCell : () => (
-    <div className='flex gap-2 items-center justify-center mt-2'>
-<FiEdit2  className="text-blue-500"  size={26} />
-<MdDeleteOutline size={26} className='text-red-500' />
-    </div>
-   )
-    }
- 
+    },
+    {
+      field: 'description',
+      headerName: 'Description',
+    },
+    {
+      field: 'stock',
+      headerName: 'Stocks',
+    },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      renderCell: () => (
+        <div className="flex gap-2 items-center justify-center mt-2">
+          <FiEdit2 className="text-blue-500" size={26} />
+          <MdDeleteOutline size={26} className="text-red-500" />
+        </div>
+      ),
+    },
   ];
 
   return (
     <div className="m-10">
-      <button onClick={handleOpen}  className="m-2 bg-blue-500 text-md font-semibold text-white py-2 px-6">
+      <button
+        onClick={handleOpen}
+        className="m-2 bg-blue-500 text-md font-semibold text-white py-2 px-6"
+      >
         Add Product
       </button>
       <Box sx={{ height: 400, width: '100%' }}>
@@ -85,22 +90,22 @@ function Product() {
           pageSizeOptions={[5]}
         />
       </Box>
-         <Modal
+      <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-         <form>
-          <label>Name</label>
-          <input {...register('name')} type="text"/>
-          <label>Price</label>
-          <input {...register('Price')} type="text"/>
-          <label>Image</label>
-          <input type="file" {...register('name')}/>
-          <button>Submit</button>
-         </form>
+          <form>
+            <label>Name</label>
+            <input {...register('name')} type="text" />
+            <label>Price</label>
+            <input {...register('Price')} type="text" />
+            <label>Image</label>
+            <input type="file" {...register('name')} />
+            <button>Submit</button>
+          </form>
         </Box>
       </Modal>
     </div>
